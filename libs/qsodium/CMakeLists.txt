@@ -125,7 +125,6 @@ if(BUILD_SHARED_LIBS)
     qt_add_library(qml-sodium SHARED)
 else()
     qt_add_library(qml-sodium STATIC)
-    // FIXME EXPORTS DEAL
 endif()
 
 
