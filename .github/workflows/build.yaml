@@ -1,7 +1,11 @@
 name: Build Qt JOB
 
 on:
-  workflow_call:
+  push:
+    branches: [ "main" ]
+    tags: [ "v*.*.*" ]
+  pull_request:
+    branches: [ "main" ]
 
 env:
   BUILD_TYPE: Release
@@ -9,6 +13,9 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: read
     container:
       image: ghcr.io/mantle-os/josephs-odd-builder:latest
       credentials:
