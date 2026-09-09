@@ -1,0 +1,28 @@
+name: Build Qt JOB
+
+on:
+  workflow_call:
+
+env:
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/mantle-os/josephs-odd-builder:latest
+      credentials:
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        submodules: recursive
+        fetch-depth: 0
+
+    - name: Configure CMake
+      run: cmake -B ${{ github.workspace }}/build -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }} -DJOB_CI_BUILD=ON
+
+    - name: Build
+      run: cmake --build ${{ github.workspace }}/build --config ${{ env.BUILD_TYPE }} --target all -j$(nproc)
