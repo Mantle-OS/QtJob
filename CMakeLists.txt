@@ -28,5 +28,5 @@ add_subdirectory(libs)
 add_subdirectory(apps)
 
 add_custom_target(qtjob_ci SOURCES
-    .github/workflows/build.yml
+    .github/workflows/build.yaml
 )
